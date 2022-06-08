@@ -18,12 +18,12 @@ class CreateWalletsTable extends Migration
             $table->engine = "InnoDB"; // engine for transaction support
 
             $table->id()->unsigned(); // can use bigint
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->decimal('balance',9,3)->default(0);
             $table->timestamps();
 
             // Relations
-            $table->foreign('user_id')->references('id')->on('users');
+            //$table->foreign('user_id')->references('id')->on('users');
 
             // Index
             /**

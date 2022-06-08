@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->engine = "InnoDB"; // engine for transaction support
 
             $table->bigIncrements('id')->unsigned();
-            $table->integer('wallet_id')->unsigned();
+            $table->unsignedBigInteger('wallet_id')->unsigned();
             $table->decimal('amount',9,3);
             $table->enum('type', ['deposit', 'withdraw']);
             $table->uuid('reference_id');
