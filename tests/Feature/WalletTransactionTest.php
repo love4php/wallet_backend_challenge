@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -79,6 +80,19 @@ class WalletTransactionTest extends TestCase
             ->assertExactJson([
                 'message' => 'Insufficient budget'
             ]);
+
+    }
+
+    public function test_succes_transaction(){
+        $response = $this->post('/api/add-money', [
+            "user_id" => 1,
+            "amount" => 5000.00
+        ]);
+
+        $data = json_decode($response->getContent(), true);
+
+        $tr = Transaction::where('reference_id', $data['reference_id'])->exists();
+        $this->assertTrue($tr);
 
     }
 }
