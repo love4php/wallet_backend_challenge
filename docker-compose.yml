@@ -5,9 +5,9 @@ services:
       build:
         context: .
         dockerfile: Dockerfile
-      command: 'php artisan serve --host=0.0.0.0'
       volumes:
         - .:/app
+        - .env.docker:/app/.env
       ports:
         - 8000:8000
       depends_on:
@@ -15,13 +15,13 @@ services:
     db:
       platform: linux/x86_64
       image: mysql:8.0
+      command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
       environment:
         MYSQL_DATABASE: roomvu
         MYSQL_USER: roomvu
         MYSQL_ROOT: root
         MYSQL_PASSWORD: roomvu
-        MYSQL_ROOT_PASSWORD:
       volumes:
-        - ./storage/dbdata:/var/lib/mysql
+        - ./storage/mysql:/var/lib/mysql
       ports:
         - 3306:3306
